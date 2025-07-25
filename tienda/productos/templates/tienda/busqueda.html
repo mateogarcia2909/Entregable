@@ -1,0 +1,40 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+
+<h2 class="text-light">Resultados para: "{{ query }}"</h2>
+
+<!-- NAVBAR solo con carrito -->
+<nav class="navbar navbar-expand-lg mb-4">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand" href="#">🎮 MatrucSystem 🎮</a>
+    <div>
+      <a href="{% url 'tienda:ver_carrito' %}" class="btn btn-outline-warning">
+        <i class="bi bi-cart-fill"></i> Carrito
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- aquí puedes mostrar los productos encontrados -->
+{% if resultados %}
+  <div class="row">
+    {% for producto in resultados %}
+      <div class="col-md-4 mb-4">
+        <div class="card bg-dark text-light border border-success">
+          {% if producto.imagen %}
+            <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text fw-bold text-success">${{ producto.precio }}</p>
+            <a href="{% url 'tienda:detalle_producto' producto.id %}" class="btn btn-outline-info mt-2 w-100">Ver más</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-light">No se encontraron productos para "{{ query }}".</p>
+{% endif %}
+
+{% endblock %}
