@@ -1,0 +1,32 @@
+{% extends 'tienda/base.html' %}
+{% block content %}
+<div class="container mt-5 text-light" style="max-width: 600px; background: #1a1a1a; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px #0ff;">
+  <h2 class="mb-4 text-center" style="font-family: 'Orbitron', sans-serif; color: #0ff;">Realizar compra</h2>
+
+  <form id="compraForm">
+    <div class="form-group">
+      <label for="metodo_pago">Selecciona método de pago</label>
+      <select id="metodo_pago" class="form-control bg-dark text-light border-info">
+        <option value="Pago contraentrega">Pago contraentrega</option>
+        <option value="Transferencia bancaria">Transferencia bancaria</option>
+        <option value="Nequi">Nequi</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-outline-info w-100 mt-4" style="font-weight: bold;">📲 Confirmar por WhatsApp</button>
+  </form>
+</div>
+
+<!-- Fuente gamer -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
+<script>
+  document.getElementById('compraForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const metodo = document.getElementById('metodo_pago').value;
+    const mensaje = encodeURIComponent("Hola, quiero realizar una compra con el método de pago: " + metodo);
+    const numero = "573123351988";  
+    window.location.href = "https://wa.me/" + numero + "?text=" + mensaje;
+  });
+</script>
+{% endblock %}
